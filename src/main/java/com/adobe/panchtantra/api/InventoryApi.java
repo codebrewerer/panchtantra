@@ -5,21 +5,16 @@
  */
 package com.adobe.panchtantra.api;
 
-import com.adobe.panchtantra.model.Booking;
-import com.adobe.panchtantra.model.Inventory;
+import com.adobe.panchtantra.model.*;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @javax.annotation.Generated(value = "io.panchtantra.codegen.languages.SpringCodegen", date = "2020-09-24T08:39:55.612Z")
 
 @Api(value = "inventory", description = "the inventory API")
-@RequestMapping(value = "/Panchtantra/Parasites/1.0.0")
 public interface InventoryApi {
 
     @ApiOperation(value = "Save Booking.", nickname = "saveBookingsByInventoryId", notes = "Save Booking.", tags={ "Booking", })
@@ -36,5 +31,14 @@ public interface InventoryApi {
     @RequestMapping(value = "/inventory",
         method = RequestMethod.POST)
     ResponseEntity<Void> saveInventory(@ApiParam(value = "Inventory Object."  )  @Valid @RequestBody Inventory inventory);
+    
+    @ApiOperation(value = "Get Inventories.", nickname = "getInventories", notes = "Get Inventory.", tags={ "Inventory", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = Inventories.class) })
+    @RequestMapping(value = "/inventory",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<Inventories> getInventories(@RequestParam("packageId") String packageId, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate);
+    
 
 }
