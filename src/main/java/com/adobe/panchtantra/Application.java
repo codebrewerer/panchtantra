@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @ComponentScan("com.adobe") // com.adobe also ensures that all asr beans created
-@EntityScan(basePackages = "com.adobe.panchtantra.model")
+@EntityScan(basePackages = "com.adobe.panchtantra.entity")
 public class Application implements CommandLineRunner {
 
     @Override

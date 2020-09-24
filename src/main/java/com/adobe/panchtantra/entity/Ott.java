@@ -6,11 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 @Entity
 @Table(name="otts")
-public class Ott {
+public class Ott implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +23,6 @@ public class Ott {
 
     @Column(name="status")
     private String status;
-
-    @Column(name="created_at")
-    private ZonedDateTime createdAt;
-
-    @Column(name="updated_at")
-    private ZonedDateTime updatedAt;
 
     public Long getId() {
         return id;
@@ -53,19 +48,4 @@ public class Ott {
         this.status = status;
     }
 
-    public ZonedDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public ZonedDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(ZonedDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }
