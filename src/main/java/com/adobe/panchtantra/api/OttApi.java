@@ -6,6 +6,7 @@
 package com.adobe.panchtantra.api;
 
 import com.adobe.panchtantra.model.ModelPackage;
+import com.adobe.panchtantra.model.Otts;
 import com.adobe.panchtantra.model.Packages;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @javax.annotation.Generated(value = "io.panchtantra.codegen.languages.SpringCodegen", date = "2020-09-24T08:39:55.612Z")
 
 @Api(value = "ott", description = "the ott API")
-@RequestMapping(value = "/Panchtantra/Parasites/1.0.0")
 public interface OttApi {
+
+    @ApiOperation(value = "Get all otts", nickname = "getAllOtts", notes = "Get all otts", response = Otts.class, tags={ "OTT", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = Packages.class)
+    })
+    @RequestMapping(value = "/ott",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<Otts> getAllOtts();
 
     @ApiOperation(value = "Find OTT packages by OTTid", nickname = "getAllOttPackages", notes = "Find OTT packages by OTTid", response = Packages.class, tags={ "OTT", })
     @ApiResponses(value = { 
