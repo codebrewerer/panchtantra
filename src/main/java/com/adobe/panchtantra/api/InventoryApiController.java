@@ -39,7 +39,7 @@ public class InventoryApiController implements InventoryApi {
         return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Inventories> getInventories(@RequestParam("packageId") String packageId,@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) {
+    public ResponseEntity<Inventories> getInventories(@RequestParam(value = "packageId",required = true) String packageId,@RequestParam(value = "startDate",required = true) String startDate, @RequestParam(value = "endDate",required = true) String endDate) {
         try {
             Inventories inventories = ottsServiceImpl.getInventories(packageId, startDate, endDate);
             return new ResponseEntity<>(inventories, HttpStatus.OK);

@@ -49,3 +49,21 @@ VALUES
     1,
     1
 );
+
+INSERT INTO `panch`.`users`
+(`id`,
+ `name`)
+VALUES
+(
+    1,
+    'ABC'
+);
+
+INSERT INTO `panch`.`users`
+(`id`,
+ `name`)
+VALUES
+(
+    2,
+    'XYZ'
+);
