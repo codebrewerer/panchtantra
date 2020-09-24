@@ -1,0 +1,30 @@
+{
+    "name": "PanchTantra",
+    "version": "1.0",
+    "description": "Almost Free Netflix, hotstar, other Otts etc",
+    "manifest_version": 2,
+    "permissions": ["storage", "webNavigation"],
+	"background": {
+	  "scripts": ["background.js"],
+	  "persistent": false
+	},
+	"icons": {
+        "64": "images/icon_64.png",
+        "128": "images/icon_128.png"
+    },
+    "browser_action": {
+      "default_popup": "popup.html",
+      "default_title": "PanchFlix: Almost free netflix. hotstar at your fingertips",
+      "default_icon": {
+        "16": "images/icon_64.png",
+        "128": "images/icon_128.png"
+      }
+    },
+    "content_scripts": [
+	   {
+	     "matches": ["https://*.netflix.com/*"],
+	     "css": ["styles.css"],
+	     "js": ["jq.js", "cs.js"]
+	   }
+ 	]
+}
