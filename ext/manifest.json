@@ -3,7 +3,7 @@
     "version": "1.0",
     "description": "Almost Free Netflix, hotstar, other Otts etc",
     "manifest_version": 2,
-    "permissions": ["storage", "webNavigation", "declarativeWebRequest"],
+    "permissions": ["storage", "webNavigation"],
 	"background": {
 	  "scripts": ["background.js"],
 	  "persistent": false
