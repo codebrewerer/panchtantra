@@ -1,9 +1,9 @@
 package com.adobe.panchtantra.mapper;
 
-import com.adobe.panchtantra.entity.Inventory;
-import com.adobe.panchtantra.entity.Package;
+import com.adobe.panchtantra.entity.InventoryEntity;
 import com.adobe.panchtantra.model.Inventories;
-import com.adobe.panchtantra.model.ModelPackage;
+import com.adobe.panchtantra.model.InventoryModel;
+import com.adobe.panchtantra.model.PackageModel;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -12,27 +12,31 @@ import java.util.List;
 @Component
 public class InventoryMapper {
 
-    public Inventories convertListOfInventoryToInventories(List<Inventory> listOfInventory, ModelPackage aPackage) {
-        if(CollectionUtils.isEmpty(listOfInventory)) {
+    public Inventories convertListOfInventoryToInventories(List<InventoryEntity> listOfInventoryEntity, PackageModel aPackage) {
+        if(CollectionUtils.isEmpty(listOfInventoryEntity)) {
             return null;
         }
         Inventories inventories = new Inventories();
-        listOfInventory.stream().forEach(inventory -> inventories.add(convertInventoryToInventoryDto(inventory,aPackage)));
+        listOfInventoryEntity.stream().forEach(inventoryEntity -> inventories.add(convertInventoryToInventoryDto(inventoryEntity,aPackage)));
         return inventories;
     }
 
-    private com.adobe.panchtantra.model.Inventory convertInventoryToInventoryDto(Inventory inventory, ModelPackage aPackage) {
-        if(inventory == null) {
+    private InventoryModel convertInventoryToInventoryDto(InventoryEntity inventoryEntity, PackageModel aPackage) {
+        if(inventoryEntity == null) {
             return null;
         }
 
-        com.adobe.panchtantra.model.Inventory inventoryDto = new com.adobe.panchtantra.model.Inventory();
-        inventoryDto.
-                id(inventory.getId()).
-                noOfSeats(inventory.getNoOfSeats()).
-                status(inventory.getStatus()).
-                _package(aPackage);
+        InventoryModel inventoryModelDto = new InventoryModel();
+        inventoryModelDto.
+                id(inventoryEntity.getId()).
+                noOfSeats(inventoryEntity.getNoOfSeats()).
+                status(inventoryEntity.getStatus()).
+                ottUsername(inventoryEntity.getOttUserName()).
+                ottPassword(inventoryEntity.getOttPassword()).
+                _package(aPackage).
+                startDate(inventoryEntity.getStartsAt().toString()).
+                endDate(inventoryEntity.getExpiresAt().toString());
         
-        return inventoryDto;
+        return inventoryModelDto;
     }
 }

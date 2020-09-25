@@ -1,14 +1,17 @@
 package com.adobe.panchtantra.model;
 
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.LocalDate;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 
 /**
- * Inventory
+ * InventoryEntity
  */
 @Validated
 @javax.annotation.Generated(value = "io.panchtantra.codegen.languages.SpringCodegen", date = "2020-09-24T08:39:55.612Z")
@@ -16,36 +19,67 @@ import javax.validation.Valid;
 
 
 
-public class Inventory   {
+public class InventoryModel {
   @JsonProperty("id")
   private Long id = null;
 
-  @JsonProperty("package")
-  private ModelPackage _package = null;
+  @JsonProperty(value = "package",required = true)
+  private PackageModel _package = null;
 
-  @JsonProperty("seller")
-  private User seller = null;
+  @JsonProperty(value = "seller",required = true)
+  private UserModel seller = null;
 
-  @JsonProperty("ottUsername")
+  @JsonProperty(value = "ottUsername",required = true)
   private String ottUsername = null;
 
-  @JsonProperty("ottPassword")
+  @JsonProperty(value = "ottPassword",required = true)
   private String ottPassword = null;
 
-  @JsonProperty("noOfSeats")
+  @JsonProperty(value = "noOfSeats",required = true)
   private Long noOfSeats = null;
 
   @JsonProperty("booking")
   private Bookings booking = null;
 
-  @JsonProperty("status")
-  private Object status = null;
+  /**
+   * Gets or Sets status
+   */
+  public enum StatusEnum {
+    ACTIVE("ACTIVE"),
 
+    INACTIVE("INACTIVE");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static InventoryModel.StatusEnum fromValue(String text) {
+      for (InventoryModel.StatusEnum b : InventoryModel.StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+  }
+
+  @JsonProperty("status")
+  private InventoryModel.StatusEnum status = null;
+  
   @JsonProperty("startDate")
-  private LocalDate startDate = null;
+  private String startDate = null;
 
   @JsonProperty("endDate")
-  private LocalDate endDate = null;
+  private String endDate = null;
 
   @JsonProperty("createdDateAt")
   private LocalDate createdDateAt = null;
@@ -53,7 +87,7 @@ public class Inventory   {
   @JsonProperty("updatedDateAt")
   private LocalDate updatedDateAt = null;
 
-  public Inventory id(Long id) {
+  public InventoryModel id(Long id) {
     this.id = id;
     return this;
   }
@@ -73,7 +107,7 @@ public class Inventory   {
     this.id = id;
   }
 
-  public Inventory _package(ModelPackage _package) {
+  public InventoryModel _package(PackageModel _package) {
     this._package = _package;
     return this;
   }
@@ -86,15 +120,15 @@ public class Inventory   {
 
   @Valid
 
-  public ModelPackage getPackage() {
+  public PackageModel getPackage() {
     return _package;
   }
 
-  public void setPackage(ModelPackage _package) {
+  public void setPackage(PackageModel _package) {
     this._package = _package;
   }
 
-  public Inventory seller(User seller) {
+  public InventoryModel seller(UserModel seller) {
     this.seller = seller;
     return this;
   }
@@ -107,15 +141,15 @@ public class Inventory   {
 
   @Valid
 
-  public User getSeller() {
+  public UserModel getSeller() {
     return seller;
   }
 
-  public void setSeller(User seller) {
+  public void setSeller(UserModel seller) {
     this.seller = seller;
   }
 
-  public Inventory ottUsername(String ottUsername) {
+  public InventoryModel ottUsername(String ottUsername) {
     this.ottUsername = ottUsername;
     return this;
   }
@@ -135,7 +169,7 @@ public class Inventory   {
     this.ottUsername = ottUsername;
   }
 
-  public Inventory ottPassword(String ottPassword) {
+  public InventoryModel ottPassword(String ottPassword) {
     this.ottPassword = ottPassword;
     return this;
   }
@@ -155,7 +189,7 @@ public class Inventory   {
     this.ottPassword = ottPassword;
   }
 
-  public Inventory noOfSeats(Long noOfSeats) {
+  public InventoryModel noOfSeats(Long noOfSeats) {
     this.noOfSeats = noOfSeats;
     return this;
   }
@@ -175,7 +209,7 @@ public class Inventory   {
     this.noOfSeats = noOfSeats;
   }
 
-  public Inventory booking(Bookings booking) {
+  public InventoryModel booking(Bookings booking) {
     this.booking = booking;
     return this;
   }
@@ -196,7 +230,7 @@ public class Inventory   {
     this.booking = booking;
   }
 
-  public Inventory status(Object status) {
+  public InventoryModel status(InventoryModel.StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -204,19 +238,19 @@ public class Inventory   {
   /**
    * Get status
    * @return status
-  **/
+   **/
   @ApiModelProperty(value = "")
 
 
-  public Object getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(Object status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
-  public Inventory startDate(LocalDate startDate) {
+  public InventoryModel startDate(String startDate) {
     this.startDate = startDate;
     return this;
   }
@@ -229,15 +263,15 @@ public class Inventory   {
 
   @Valid
 
-  public LocalDate getStartDate() {
+  public String getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(LocalDate startDate) {
+  public void setStartDate(String startDate) {
     this.startDate = startDate;
   }
 
-  public Inventory endDate(LocalDate endDate) {
+  public InventoryModel endDate(String endDate) {
     this.endDate = endDate;
     return this;
   }
@@ -250,15 +284,15 @@ public class Inventory   {
 
   @Valid
 
-  public LocalDate getEndDate() {
+  public String getEndDate() {
     return endDate;
   }
 
-  public void setEndDate(LocalDate endDate) {
+  public void setEndDate(String endDate) {
     this.endDate = endDate;
   }
 
-  public Inventory createdDateAt(LocalDate createdDateAt) {
+  public InventoryModel createdDateAt(LocalDate createdDateAt) {
     this.createdDateAt = createdDateAt;
     return this;
   }
@@ -279,7 +313,7 @@ public class Inventory   {
     this.createdDateAt = createdDateAt;
   }
 
-  public Inventory updatedDateAt(LocalDate updatedDateAt) {
+  public InventoryModel updatedDateAt(LocalDate updatedDateAt) {
     this.updatedDateAt = updatedDateAt;
     return this;
   }
@@ -309,7 +343,7 @@ public class Inventory   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Inventory inventory = (Inventory) o;
+    InventoryModel inventory = (InventoryModel) o;
     return Objects.equals(this.id, inventory.id) &&
         Objects.equals(this._package, inventory._package) &&
         Objects.equals(this.seller, inventory.seller) &&
@@ -332,7 +366,7 @@ public class Inventory   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Inventory {\n");
+    sb.append("class InventoryEntity {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    _package: ").append(toIndentedString(_package)).append("\n");

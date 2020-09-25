@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 
 
 
-public class Bookings extends ArrayList<Booking>  {
+public class Bookings extends ArrayList<BookingModel>  {
 
   @Override
   public boolean equals(java.lang.Object o) {

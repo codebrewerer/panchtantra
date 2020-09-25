@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 
 
 
-public class Otts extends ArrayList<Ott>  {
+public class Otts extends ArrayList<OttModel>  {
 
   @Override
   public boolean equals(java.lang.Object o) {

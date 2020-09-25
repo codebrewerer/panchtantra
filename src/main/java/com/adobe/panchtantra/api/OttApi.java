@@ -5,7 +5,7 @@
  */
 package com.adobe.panchtantra.api;
 
-import com.adobe.panchtantra.model.ModelPackage;
+import com.adobe.panchtantra.model.PackageModel;
 import com.adobe.panchtantra.model.Otts;
 import com.adobe.panchtantra.model.Packages;
 import io.swagger.annotations.*;
@@ -32,21 +32,21 @@ public interface OttApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = Packages.class),
         @ApiResponse(code = 400, message = "Invalid ID"),
-        @ApiResponse(code = 404, message = "Package not found") })
+        @ApiResponse(code = 404, message = "PackageEntity not found") })
     @RequestMapping(value = "/ott/{ottId}/packages",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<Packages> getAllOttPackages(@ApiParam(value = "ID of ott",required=true) @PathVariable("ottId") Long ottId);
 
 
-    @ApiOperation(value = "Find ott Package by Id", nickname = "getPackageById", notes = "Find ott Package by Id", response = ModelPackage.class, tags={ "OTT", })
+    @ApiOperation(value = "Find ott PackageEntity by Id", nickname = "getPackageById", notes = "Find ott PackageEntity by Id", response = PackageModel.class, tags={ "OTT", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = ModelPackage.class),
+        @ApiResponse(code = 200, message = "successful operation", response = PackageModel.class),
         @ApiResponse(code = 400, message = "Invalid ID"),
-        @ApiResponse(code = 404, message = "Package not found") })
+        @ApiResponse(code = 404, message = "PackageEntity not found") })
     @RequestMapping(value = "/ott/{ottId}/package/{packageId}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<ModelPackage> getPackageById(@ApiParam(value = "ID of ott to return",required=true) @PathVariable("ottId") Long ottId,@ApiParam(value = "ID of package to return",required=true) @PathVariable("packageId") Long packageId);
+    ResponseEntity<PackageModel> getPackageById(@ApiParam(value = "ID of ott to return",required=true) @PathVariable("ottId") Long ottId, @ApiParam(value = "ID of package to return",required=true) @PathVariable("packageId") Long packageId);
 
 }

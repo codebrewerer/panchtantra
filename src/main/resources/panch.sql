@@ -54,6 +54,7 @@ DROP TABLE IF EXISTS `panch`.`users` ;
 
 CREATE  TABLE IF NOT EXISTS `panch`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT ,
+  `email` VARCHAR(255) NULL ,
   `name` VARCHAR(255) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
@@ -68,6 +69,8 @@ CREATE  TABLE IF NOT EXISTS `panch`.`inventories` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `num_seats` INT NOT NULL ,
   `status` ENUM('ACTIVE', 'INACTIVE') NOT NULL ,
+  `ott_user_name` VARCHAR(45) NULL ,
+  `ott_password` VARCHAR(45) NULL ,
   `starts_at` DATETIME NOT NULL ,
   `expires_at` DATETIME NOT NULL ,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP ,
@@ -76,17 +79,7 @@ CREATE  TABLE IF NOT EXISTS `panch`.`inventories` (
   `packages_otts_id` INT NOT NULL ,
   PRIMARY KEY (`id`, `users_id`, `packages_otts_id`) ,
   INDEX `fk_inventories_users1_idx` (`users_id` ASC) ,
-  INDEX `fk_inventories_packages1_idx` (`packages_otts_id` ASC) ,
-  CONSTRAINT `fk_inventories_users1`
-    FOREIGN KEY (`users_id` )
-    REFERENCES `panch`.`users` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_inventories_packages1`
-    FOREIGN KEY (`packages_otts_id` )
-    REFERENCES `panch`.`packages` (`otts_id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  INDEX `fk_inventories_packages1_idx` (`packages_otts_id` ASC))
 ENGINE = InnoDB;
 
 
@@ -98,7 +91,7 @@ DROP TABLE IF EXISTS `panch`.`bookings` ;
 CREATE  TABLE IF NOT EXISTS `panch`.`bookings` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `num_seats` INT NOT NULL ,
-  `status` ENUM('IN_PROGRESS', 'FAILED', 'SUCCESS') NULL ,
+  `status` ENUM('ACTIVE', 'INACTIVE') NULL ,
   `booked_at` VARCHAR(45) NULL ,
   `expires_at` VARCHAR(45) NULL ,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP ,
@@ -107,17 +100,7 @@ CREATE  TABLE IF NOT EXISTS `panch`.`bookings` (
   `users_id` INT NOT NULL ,
   PRIMARY KEY (`id`, `inventories_id`, `users_id`) ,
   INDEX `fk_bookings_inventories1_idx` (`inventories_id` ASC) ,
-  INDEX `fk_bookings_users1_idx` (`users_id` ASC) ,
-  CONSTRAINT `fk_bookings_inventories1`
-    FOREIGN KEY (`inventories_id` )
-    REFERENCES `panch`.`inventories` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_bookings_users1`
-    FOREIGN KEY (`users_id` )
-    REFERENCES `panch`.`users` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  INDEX `fk_bookings_users1_idx` (`users_id` ASC))
 ENGINE = InnoDB;
 
 USE `panch` ;

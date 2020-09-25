@@ -1,9 +1,9 @@
 package com.adobe.panchtantra.api;
 
-import com.adobe.panchtantra.model.ModelPackage;
+import com.adobe.panchtantra.model.PackageModel;
 import com.adobe.panchtantra.model.Otts;
 import com.adobe.panchtantra.model.Packages;
-import com.adobe.panchtantra.service.OttsServiceImpl;
+import com.adobe.panchtantra.service.PanchtantraServiceImpl;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +21,11 @@ public class OttApiController implements OttApi {
     private static final Logger log = LoggerFactory.getLogger(OttApiController.class);
 
     @Autowired
-    private OttsServiceImpl ottsServiceImpl;
+    private PanchtantraServiceImpl panchtantraServiceImpl;
 
     public ResponseEntity<Otts> getAllOtts() {
         try {
-            Otts otts = ottsServiceImpl.getAllOtts();
+            Otts otts = panchtantraServiceImpl.getAllOtts();
             return new ResponseEntity<>(otts, HttpStatus.OK);
         } catch (Exception e) {
             log.error("Exception occurred while fetching otts", e);
@@ -35,7 +35,7 @@ public class OttApiController implements OttApi {
 
     public ResponseEntity<Packages> getAllOttPackages(@ApiParam(value = "ID of ott", required = true) @PathVariable("ottId") Long ottId) {
         try {
-            Packages packages = ottsServiceImpl.getPackages(ottId);
+            Packages packages = panchtantraServiceImpl.getPackages(ottId);
             return new ResponseEntity<Packages>(packages, HttpStatus.OK);
         } catch (Exception e) {
             log.error("Exception occurred while fetching packages", e);
@@ -43,13 +43,13 @@ public class OttApiController implements OttApi {
         }
     }
 
-    public ResponseEntity<ModelPackage> getPackageById(@ApiParam(value = "ID of ott to return", required = true) @PathVariable("ottId") Long ottId, @ApiParam(value = "ID of package to return", required = true) @PathVariable("packageId") Long packageId) {
+    public ResponseEntity<PackageModel> getPackageById(@ApiParam(value = "ID of ott to return", required = true) @PathVariable("ottId") Long ottId, @ApiParam(value = "ID of package to return", required = true) @PathVariable("packageId") Long packageId) {
         try {
-            ModelPackage modelPackage = ottsServiceImpl.getPackage(ottId, packageId);
-            return new ResponseEntity<ModelPackage>(modelPackage, HttpStatus.OK);
+            PackageModel packageModel = panchtantraServiceImpl.getPackage(ottId, packageId);
+            return new ResponseEntity<PackageModel>(packageModel, HttpStatus.OK);
         } catch (Exception e) {
             log.error("Exception occurred while fetching package", e);
-            return new ResponseEntity<ModelPackage>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<PackageModel>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -4,12 +4,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="users")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
 
+    @Column(name="email")
+    private String email;
+    
     @Column(name="name")
     private String name;
 
@@ -21,6 +24,14 @@ public class User {
         this.id = id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
     public String getName() {
         return name;
     }

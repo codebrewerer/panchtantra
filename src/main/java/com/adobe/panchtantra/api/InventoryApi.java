@@ -17,22 +17,22 @@ import javax.validation.Valid;
 @Api(value = "inventory", description = "the inventory API")
 public interface InventoryApi {
 
-    @ApiOperation(value = "Save Booking.", nickname = "saveBookingsByInventoryId", notes = "Save Booking.", tags={ "Booking", })
+    @ApiOperation(value = "Save BookingModel.", nickname = "saveBooking", notes = "Save BookingModel.", tags={ "BookingModel", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Booking saved successfully.") })
-    @RequestMapping(value = "/inventory/{inventoryId}/booking",
+        @ApiResponse(code = 204, message = "BookingModel saved successfully.") })
+    @RequestMapping(value = "/inventory/booking",
         method = RequestMethod.POST)
-    ResponseEntity<Void> saveBookingsByInventoryId(@ApiParam(value = "inventoryId",required=true) @PathVariable("inventoryId") Long inventoryId,@ApiParam(value = "Booking Object."  )  @Valid @RequestBody Booking booking);
+    ResponseEntity<Void> saveBooking(@ApiParam(value = "BookingModel Object."  )  @Valid @RequestBody BookingModel booking);
 
 
-    @ApiOperation(value = "Save Inventory.", nickname = "saveInventory", notes = "Save Inventory.", tags={ "Inventory", })
+    @ApiOperation(value = "Save InventoryEntity.", nickname = "saveInventory", notes = "Save InventoryEntity.", tags={ "InventoryEntity", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Inventory saved successfully.") })
+        @ApiResponse(code = 204, message = "InventoryEntity saved successfully.") })
     @RequestMapping(value = "/inventory",
         method = RequestMethod.POST)
-    ResponseEntity<Void> saveInventory(@ApiParam(value = "Inventory Object."  )  @Valid @RequestBody Inventory inventory);
+    ResponseEntity<Void> saveInventory(@ApiParam(value = "InventoryEntity Object."  )  @Valid @RequestBody InventoryModel inventory);
     
-    @ApiOperation(value = "Get Inventories.", nickname = "getInventories", notes = "Get Inventory.", tags={ "Inventory", })
+    @ApiOperation(value = "Get Inventories.", nickname = "getInventories", notes = "Get InventoryEntity.", tags={ "InventoryEntity", })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful operation", response = Inventories.class) })
     @RequestMapping(value = "/inventory",

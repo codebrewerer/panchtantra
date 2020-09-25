@@ -1,13 +1,17 @@
 package com.adobe.panchtantra.entity;
 
+import com.adobe.panchtantra.model.InventoryModel;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name="inventories")
-public class Inventory {
+public class InventoryEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
     private Long id;
 
@@ -15,8 +19,15 @@ public class Inventory {
     private Long noOfSeats;
 
     @Column(name="status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private InventoryModel.StatusEnum status;
+    
+    @Column(name="ott_user_name")
+    private String ottUserName;
 
+    @Column(name="ott_password")
+    private String ottPassword;
+    
     @Column(name="starts_at")
     private Date startsAt;
 
@@ -28,6 +39,16 @@ public class Inventory {
 
     @Column(name="packages_otts_id")
     private String packageId;
+
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date updatedAt;
 
     public Long getId() {
         return id;
@@ -45,12 +66,28 @@ public class Inventory {
         this.noOfSeats = noOfSeats;
     }
 
-    public String getStatus() {
+    public InventoryModel.StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(InventoryModel.StatusEnum status) {
         this.status = status;
+    }
+
+    public String getOttUserName() {
+        return ottUserName;
+    }
+
+    public void setOttUserName(String ottUserName) {
+        this.ottUserName = ottUserName;
+    }
+
+    public String getOttPassword() {
+        return ottPassword;
+    }
+
+    public void setOttPassword(String ottPassword) {
+        this.ottPassword = ottPassword;
     }
 
     public Date getStartsAt() {

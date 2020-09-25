@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 
 
 
-public class Packages extends ArrayList<ModelPackage>  {
+public class Packages extends ArrayList<PackageModel>  {
 
   @Override
   public boolean equals(java.lang.Object o) {
