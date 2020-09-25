@@ -17,13 +17,9 @@ public class SwaggerDocumentationConfig {
 
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("ott-subscription")
-            .description("ott-subscription")
-            .license("Apache 2.0")
-            .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-            .termsOfServiceUrl("")
+            .title("Panchtantra")
+            .description("Panchtantra - ott-subscription project")
             .version("1.0.0")
-            .contact(new Contact("","", "apiteam@panchtantra.io"))
             .build();
     }
 
@@ -31,7 +27,7 @@ public class SwaggerDocumentationConfig {
     public Docket customImplementation(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                    .apis(RequestHandlerSelectors.basePackage("io.panchtantra.api"))
+                    .apis(RequestHandlerSelectors.basePackage("com.adobe.panchtantra.api"))
                     .build()
                 .directModelSubstitute(org.threeten.bp.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(org.threeten.bp.OffsetDateTime.class, java.util.Date.class)

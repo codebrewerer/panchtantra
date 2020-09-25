@@ -9,6 +9,7 @@ import com.adobe.panchtantra.model.*;
 import com.adobe.panchtantra.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -85,6 +86,7 @@ public class PanchtantraServiceImpl {
         
     }
 
+    @Transactional
     public void saveUpdateInventory(InventoryModel inventoryModel) {
         try {
             if(!validatePackageDetails(inventoryModel)) {
@@ -110,7 +112,8 @@ public class PanchtantraServiceImpl {
             throw new RuntimeException("Invalid Date");
         }
     }
-    
+
+    @Transactional
     public void saveUpdateBooking(BookingModel booking) {
         InventoryEntity inventoryEntity = inventoryRepository.findOne(booking.getInventory().getId());
         
