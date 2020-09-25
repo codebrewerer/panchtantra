@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/Panchtantra/Parasites/1.0.0")
 public interface UserApi {
 
-    @ApiOperation(value = "Retrieve bookings for user", nickname = "getBookingsByUserId", notes = "Retrieve bookings for user", response = Bookings.class, tags={ "Booking", })
+    @ApiOperation(value = "Retrieve bookings for user", nickname = "getBookingsByUserId", notes = "Retrieve bookings for user", response = Bookings.class, tags={ "BookingModel", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = Bookings.class),
         @ApiResponse(code = 400, message = "Invalid ID"),
@@ -30,7 +30,7 @@ public interface UserApi {
     ResponseEntity<Bookings> getBookingsByUserId(@ApiParam(value = "userId",required=true) @PathVariable("userId") Long userId);
 
 
-    @ApiOperation(value = "Retrieve inventories for user", nickname = "getInventoriesByUserId", notes = "Retrieve inventories for user", response = Inventories.class, tags={ "Inventory", })
+    @ApiOperation(value = "Retrieve inventories for user", nickname = "getInventoriesByUserId", notes = "Retrieve inventories for user", response = Inventories.class, tags={ "InventoryEntity", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = Inventories.class),
         @ApiResponse(code = 400, message = "Invalid ID"),

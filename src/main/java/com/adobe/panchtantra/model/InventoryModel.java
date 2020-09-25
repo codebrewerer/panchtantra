@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 
 /**
- * Inventory
+ * InventoryEntity
  */
 @Validated
 @javax.annotation.Generated(value = "io.panchtantra.codegen.languages.SpringCodegen", date = "2020-09-24T08:39:55.612Z")
@@ -19,15 +19,15 @@ import javax.validation.Valid;
 
 
 
-public class Inventory   {
+public class InventoryModel {
   @JsonProperty("id")
   private Long id = null;
 
   @JsonProperty("package")
-  private ModelPackage _package = null;
+  private PackageModel _package = null;
 
   @JsonProperty("seller")
-  private User seller = null;
+  private UserModel seller = null;
 
   @JsonProperty("ottUsername")
   private String ottUsername = null;
@@ -62,8 +62,8 @@ public class Inventory   {
     }
 
     @JsonCreator
-    public static Inventory.StatusEnum fromValue(String text) {
-      for (Inventory.StatusEnum b : Inventory.StatusEnum.values()) {
+    public static InventoryModel.StatusEnum fromValue(String text) {
+      for (InventoryModel.StatusEnum b : InventoryModel.StatusEnum.values()) {
         if (String.valueOf(b.value).equals(text)) {
           return b;
         }
@@ -73,7 +73,7 @@ public class Inventory   {
   }
 
   @JsonProperty("status")
-  private Inventory.StatusEnum status = null;
+  private InventoryModel.StatusEnum status = null;
   
   @JsonProperty("startDate")
   private String startDate = null;
@@ -87,7 +87,7 @@ public class Inventory   {
   @JsonProperty("updatedDateAt")
   private LocalDate updatedDateAt = null;
 
-  public Inventory id(Long id) {
+  public InventoryModel id(Long id) {
     this.id = id;
     return this;
   }
@@ -107,7 +107,7 @@ public class Inventory   {
     this.id = id;
   }
 
-  public Inventory _package(ModelPackage _package) {
+  public InventoryModel _package(PackageModel _package) {
     this._package = _package;
     return this;
   }
@@ -120,15 +120,15 @@ public class Inventory   {
 
   @Valid
 
-  public ModelPackage getPackage() {
+  public PackageModel getPackage() {
     return _package;
   }
 
-  public void setPackage(ModelPackage _package) {
+  public void setPackage(PackageModel _package) {
     this._package = _package;
   }
 
-  public Inventory seller(User seller) {
+  public InventoryModel seller(UserModel seller) {
     this.seller = seller;
     return this;
   }
@@ -141,15 +141,15 @@ public class Inventory   {
 
   @Valid
 
-  public User getSeller() {
+  public UserModel getSeller() {
     return seller;
   }
 
-  public void setSeller(User seller) {
+  public void setSeller(UserModel seller) {
     this.seller = seller;
   }
 
-  public Inventory ottUsername(String ottUsername) {
+  public InventoryModel ottUsername(String ottUsername) {
     this.ottUsername = ottUsername;
     return this;
   }
@@ -169,7 +169,7 @@ public class Inventory   {
     this.ottUsername = ottUsername;
   }
 
-  public Inventory ottPassword(String ottPassword) {
+  public InventoryModel ottPassword(String ottPassword) {
     this.ottPassword = ottPassword;
     return this;
   }
@@ -189,7 +189,7 @@ public class Inventory   {
     this.ottPassword = ottPassword;
   }
 
-  public Inventory noOfSeats(Long noOfSeats) {
+  public InventoryModel noOfSeats(Long noOfSeats) {
     this.noOfSeats = noOfSeats;
     return this;
   }
@@ -209,7 +209,7 @@ public class Inventory   {
     this.noOfSeats = noOfSeats;
   }
 
-  public Inventory booking(Bookings booking) {
+  public InventoryModel booking(Bookings booking) {
     this.booking = booking;
     return this;
   }
@@ -230,7 +230,7 @@ public class Inventory   {
     this.booking = booking;
   }
 
-  public Inventory status(Inventory.StatusEnum status) {
+  public InventoryModel status(InventoryModel.StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -250,7 +250,7 @@ public class Inventory   {
     this.status = status;
   }
 
-  public Inventory startDate(String startDate) {
+  public InventoryModel startDate(String startDate) {
     this.startDate = startDate;
     return this;
   }
@@ -271,7 +271,7 @@ public class Inventory   {
     this.startDate = startDate;
   }
 
-  public Inventory endDate(String endDate) {
+  public InventoryModel endDate(String endDate) {
     this.endDate = endDate;
     return this;
   }
@@ -292,7 +292,7 @@ public class Inventory   {
     this.endDate = endDate;
   }
 
-  public Inventory createdDateAt(LocalDate createdDateAt) {
+  public InventoryModel createdDateAt(LocalDate createdDateAt) {
     this.createdDateAt = createdDateAt;
     return this;
   }
@@ -313,7 +313,7 @@ public class Inventory   {
     this.createdDateAt = createdDateAt;
   }
 
-  public Inventory updatedDateAt(LocalDate updatedDateAt) {
+  public InventoryModel updatedDateAt(LocalDate updatedDateAt) {
     this.updatedDateAt = updatedDateAt;
     return this;
   }
@@ -343,7 +343,7 @@ public class Inventory   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Inventory inventory = (Inventory) o;
+    InventoryModel inventory = (InventoryModel) o;
     return Objects.equals(this.id, inventory.id) &&
         Objects.equals(this._package, inventory._package) &&
         Objects.equals(this.seller, inventory.seller) &&
@@ -366,7 +366,7 @@ public class Inventory   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Inventory {\n");
+    sb.append("class InventoryEntity {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    _package: ").append(toIndentedString(_package)).append("\n");

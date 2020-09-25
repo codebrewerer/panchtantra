@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * User
+ * OttEntity
  */
 @Validated
 @javax.annotation.Generated(value = "io.panchtantra.codegen.languages.SpringCodegen", date = "2020-09-24T08:39:55.612Z")
@@ -14,17 +14,17 @@ import org.springframework.validation.annotation.Validated;
 
 
 
-public class User   {
+public class OttModel {
   @JsonProperty("id")
   private Long id = null;
 
-  @JsonProperty("email")
-  private String email = null;
+  @JsonProperty("ottName")
+  private String ottName = null;
 
-  @JsonProperty("name")
-  private String name = null;
+  @JsonProperty("status")
+  private Object status = null;
 
-  public User id(Long id) {
+  public OttModel id(Long id) {
     this.id = id;
     return this;
   }
@@ -44,44 +44,44 @@ public class User   {
     this.id = id;
   }
 
-  public User email(String email) {
-    this.email = email;
+  public OttModel ottName(String ottName) {
+    this.ottName = ottName;
     return this;
   }
 
   /**
-   * Get email
-   * @return email
+   * Get ottName
+   * @return ottName
   **/
   @ApiModelProperty(value = "")
 
 
-  public String getEmail() {
-    return email;
+  public String getOttName() {
+    return ottName;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public void setOttName(String ottName) {
+    this.ottName = ottName;
   }
 
-  public User name(String name) {
-    this.name = name;
+  public OttModel status(Object status) {
+    this.status = status;
     return this;
   }
 
   /**
-   * Get name
-   * @return name
+   * Get status
+   * @return status
   **/
   @ApiModelProperty(value = "")
 
 
-  public String getName() {
-    return name;
+  public Object getStatus() {
+    return status;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setStatus(Object status) {
+    this.status = status;
   }
 
 
@@ -93,25 +93,25 @@ public class User   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    User user = (User) o;
-    return Objects.equals(this.id, user.id) &&
-        Objects.equals(this.email, user.email) &&
-        Objects.equals(this.name, user.name);
+    OttModel ottModel = (OttModel) o;
+    return Objects.equals(this.id, ottModel.id) &&
+        Objects.equals(this.ottName, ottModel.ottName) &&
+        Objects.equals(this.status, ottModel.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, email, name);
+    return Objects.hash(id, ottName, status);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class User {\n");
+    sb.append("class OttEntity {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    ottName: ").append(toIndentedString(ottName)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }

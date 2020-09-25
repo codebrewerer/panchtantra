@@ -1,17 +1,18 @@
 package com.adobe.panchtantra.mapper;
 
-import com.adobe.panchtantra.model.User;
+import com.adobe.panchtantra.entity.UserEntity;
+import com.adobe.panchtantra.model.UserModel;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
 
-    public User convertUserToModelUser(com.adobe.panchtantra.entity.User user) {
-        User modelUser = new User();
+    public UserModel convertUserToModelUser(UserEntity userEntity) {
+        UserModel modelUser = new UserModel();
 
-        modelUser.setEmail(user.getEmail());
-        modelUser.setId(user.getId());
-        modelUser.setName(user.getName());
+        modelUser.setEmail(userEntity.getEmail());
+        modelUser.setId(userEntity.getId());
+        modelUser.setName(userEntity.getName());
 
         return modelUser;
     }

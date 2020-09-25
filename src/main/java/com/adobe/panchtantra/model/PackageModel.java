@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * ModelPackage
+ * PackageModel
  */
 @Validated
 @javax.annotation.Generated(value = "io.panchtantra.codegen.languages.SpringCodegen", date = "2020-09-24T08:39:55.612Z")
@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 
 
 
-public class ModelPackage   {
+public class PackageModel {
   @JsonProperty("id")
   private Long id = null;
 
@@ -97,7 +97,7 @@ public class ModelPackage   {
   @JsonProperty("status")
   private StatusEnum status = null;
 
-  public ModelPackage id(Long id) {
+  public PackageModel id(Long id) {
     this.id = id;
     return this;
   }
@@ -117,7 +117,7 @@ public class ModelPackage   {
     this.id = id;
   }
 
-  public ModelPackage name(String name) {
+  public PackageModel name(String name) {
     this.name = name;
     return this;
   }
@@ -137,7 +137,7 @@ public class ModelPackage   {
     this.name = name;
   }
 
-  public ModelPackage noOfSeats(Long noOfSeats) {
+  public PackageModel noOfSeats(Long noOfSeats) {
     this.noOfSeats = noOfSeats;
     return this;
   }
@@ -157,7 +157,7 @@ public class ModelPackage   {
     this.noOfSeats = noOfSeats;
   }
 
-  public ModelPackage basis(BasisEnum basis) {
+  public PackageModel basis(BasisEnum basis) {
     this.basis = basis;
     return this;
   }
@@ -177,7 +177,7 @@ public class ModelPackage   {
     this.basis = basis;
   }
 
-  public ModelPackage pricing(Double pricing) {
+  public PackageModel pricing(Double pricing) {
     this.pricing = pricing;
     return this;
   }
@@ -197,7 +197,7 @@ public class ModelPackage   {
     this.pricing = pricing;
   }
 
-  public ModelPackage status(StatusEnum status) {
+  public PackageModel status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -226,7 +226,7 @@ public class ModelPackage   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelPackage _package = (ModelPackage) o;
+    PackageModel _package = (PackageModel) o;
     return Objects.equals(this.id, _package.id) &&
         Objects.equals(this.name, _package.name) &&
         Objects.equals(this.noOfSeats, _package.noOfSeats) &&
@@ -243,7 +243,7 @@ public class ModelPackage   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ModelPackage {\n");
+    sb.append("class PackageModel {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");

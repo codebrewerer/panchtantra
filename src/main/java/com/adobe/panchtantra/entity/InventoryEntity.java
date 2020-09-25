@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="inventories")
-public class Inventory {
+public class InventoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")

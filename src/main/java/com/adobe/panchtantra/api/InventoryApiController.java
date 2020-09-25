@@ -1,11 +1,9 @@
 package com.adobe.panchtantra.api;
 
-import com.adobe.panchtantra.model.Booking;
+import com.adobe.panchtantra.model.BookingModel;
 import com.adobe.panchtantra.model.Inventories;
-import com.adobe.panchtantra.model.Inventory;
-import com.adobe.panchtantra.model.ModelPackage;
-import com.adobe.panchtantra.service.OttsServiceImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.adobe.panchtantra.model.InventoryModel;
+import com.adobe.panchtantra.service.PanchtantraServiceImpl;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import javax.servlet.http.HttpServletRequest;
 
 @javax.annotation.Generated(value = "io.panchtantra.codegen.languages.SpringCodegen", date = "2020-09-24T08:39:55.612Z")
 
@@ -28,16 +25,16 @@ public class InventoryApiController implements InventoryApi {
     private static final Logger log = LoggerFactory.getLogger(InventoryApiController.class);
 
     @Autowired
-    private OttsServiceImpl ottsServiceImpl;
+    private PanchtantraServiceImpl panchtantraServiceImpl;
     
 
-    public ResponseEntity<Void> saveBookingsByInventoryId(@ApiParam(value = "inventoryId",required=true) @PathVariable("inventoryId") Long inventoryId,@ApiParam(value = "Booking Object."  )  @Valid @RequestBody Booking booking) {
+    public ResponseEntity<Void> saveBookingsByInventoryId(@ApiParam(value = "inventoryId",required=true) @PathVariable("inventoryId") Long inventoryId,@ApiParam(value = "BookingModel Object."  )  @Valid @RequestBody BookingModel booking) {
         return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Void> saveInventory(@ApiParam(value = "Inventory Object."  )  @Valid @RequestBody Inventory inventory) {
+    public ResponseEntity<Void> saveInventory(@ApiParam(value = "InventoryEntity Object."  )  @Valid @RequestBody InventoryModel inventory) {
         try {
-            ottsServiceImpl.saveInventory(inventory);
+            panchtantraServiceImpl.saveInventory(inventory);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             log.error("Exception occurred while saving inventory ", e);
@@ -47,7 +44,7 @@ public class InventoryApiController implements InventoryApi {
 
     public ResponseEntity<Inventories> getInventories(@RequestParam(value = "packageId",required = true) String packageId,@RequestParam(value = "startDate",required = true) String startDate, @RequestParam(value = "endDate",required = true) String endDate) {
         try {
-            Inventories inventories = ottsServiceImpl.getInventories(packageId, startDate, endDate);
+            Inventories inventories = panchtantraServiceImpl.getInventories(packageId, startDate, endDate);
             return new ResponseEntity<>(inventories, HttpStatus.OK);
         } catch (Exception e) {
             log.error("Exception occurred while fetching inventories", e);

@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 
 
 
-public class Inventories extends ArrayList<Inventory>  {
+public class Inventories extends ArrayList<InventoryModel>  {
 
   @Override
   public boolean equals(java.lang.Object o) {

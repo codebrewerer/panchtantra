@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 
 /**
- * Booking
+ * BookingModel
  */
 @Validated
 @javax.annotation.Generated(value = "io.panchtantra.codegen.languages.SpringCodegen", date = "2020-09-24T08:39:55.612Z")
@@ -16,15 +16,15 @@ import javax.validation.Valid;
 
 
 
-public class Booking   {
+public class BookingModel {
   @JsonProperty("id")
   private Long id = null;
 
   @JsonProperty("inventory")
-  private Inventory inventory = null;
+  private InventoryModel inventory = null;
 
   @JsonProperty("buyer")
-  private User buyer = null;
+  private UserModel buyer = null;
 
   @JsonProperty("noOfSeats")
   private Long noOfSeats = null;
@@ -47,7 +47,7 @@ public class Booking   {
   @JsonProperty("status")
   private Object status = null;
 
-  public Booking id(Long id) {
+  public BookingModel id(Long id) {
     this.id = id;
     return this;
   }
@@ -67,7 +67,7 @@ public class Booking   {
     this.id = id;
   }
 
-  public Booking inventory(Inventory inventory) {
+  public BookingModel inventory(InventoryModel inventory) {
     this.inventory = inventory;
     return this;
   }
@@ -80,15 +80,15 @@ public class Booking   {
 
   @Valid
 
-  public Inventory getInventory() {
+  public InventoryModel getInventory() {
     return inventory;
   }
 
-  public void setInventory(Inventory inventory) {
+  public void setInventory(InventoryModel inventory) {
     this.inventory = inventory;
   }
 
-  public Booking buyer(User buyer) {
+  public BookingModel buyer(UserModel buyer) {
     this.buyer = buyer;
     return this;
   }
@@ -101,15 +101,15 @@ public class Booking   {
 
   @Valid
 
-  public User getBuyer() {
+  public UserModel getBuyer() {
     return buyer;
   }
 
-  public void setBuyer(User buyer) {
+  public void setBuyer(UserModel buyer) {
     this.buyer = buyer;
   }
 
-  public Booking noOfSeats(Long noOfSeats) {
+  public BookingModel noOfSeats(Long noOfSeats) {
     this.noOfSeats = noOfSeats;
     return this;
   }
@@ -129,7 +129,7 @@ public class Booking   {
     this.noOfSeats = noOfSeats;
   }
 
-  public Booking link(String link) {
+  public BookingModel link(String link) {
     this.link = link;
     return this;
   }
@@ -149,7 +149,7 @@ public class Booking   {
     this.link = link;
   }
 
-  public Booking startDate(LocalDate startDate) {
+  public BookingModel startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
@@ -170,7 +170,7 @@ public class Booking   {
     this.startDate = startDate;
   }
 
-  public Booking endDate(LocalDate endDate) {
+  public BookingModel endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
   }
@@ -191,7 +191,7 @@ public class Booking   {
     this.endDate = endDate;
   }
 
-  public Booking createdDateAt(LocalDate createdDateAt) {
+  public BookingModel createdDateAt(LocalDate createdDateAt) {
     this.createdDateAt = createdDateAt;
     return this;
   }
@@ -212,7 +212,7 @@ public class Booking   {
     this.createdDateAt = createdDateAt;
   }
 
-  public Booking updatedDateAt(LocalDate updatedDateAt) {
+  public BookingModel updatedDateAt(LocalDate updatedDateAt) {
     this.updatedDateAt = updatedDateAt;
     return this;
   }
@@ -233,7 +233,7 @@ public class Booking   {
     this.updatedDateAt = updatedDateAt;
   }
 
-  public Booking status(Object status) {
+  public BookingModel status(Object status) {
     this.status = status;
     return this;
   }
@@ -262,7 +262,7 @@ public class Booking   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Booking booking = (Booking) o;
+    BookingModel booking = (BookingModel) o;
     return Objects.equals(this.id, booking.id) &&
         Objects.equals(this.inventory, booking.inventory) &&
         Objects.equals(this.buyer, booking.buyer) &&
@@ -283,7 +283,7 @@ public class Booking   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Booking {\n");
+    sb.append("class BookingModel {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    inventory: ").append(toIndentedString(inventory)).append("\n");
