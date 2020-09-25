@@ -4,6 +4,7 @@ import com.adobe.panchtantra.entity.BookingEntity;
 import com.adobe.panchtantra.entity.InventoryEntity;
 import com.adobe.panchtantra.entity.PackageEntity;
 import com.adobe.panchtantra.entity.UserEntity;
+import com.adobe.panchtantra.exception.*;
 import com.adobe.panchtantra.mapper.*;
 import com.adobe.panchtantra.model.*;
 import com.adobe.panchtantra.repository.*;
@@ -64,7 +65,7 @@ public class PanchtantraServiceImpl {
     public PackageModel getPackage(Long ottId, Long packageId) {
         PackageEntity p = packageRepository.findOne(packageId);
         if(p == null) {
-            throw new RuntimeException("PackageEntity not found with given packageId");
+            throw new PackageNotFoundException("PackageEntity not found with given packageId");
         } else {
             return packageMapper.convertPackageToModelPackage(p);
         }
@@ -90,7 +91,7 @@ public class PanchtantraServiceImpl {
     public void saveUpdateInventory(InventoryModel inventoryModel) {
         try {
             if(!validatePackageDetails(inventoryModel)) {
-                throw new RuntimeException("Invalid Package");
+                throw new InvalidPackageException("Invalid Package");
             }
             InventoryEntity addUpdateInventoryEntity = inventoryRepository.findFirstBySellerIdAndAndPackageId(inventoryModel.getSeller().getId().toString(),inventoryModel.getPackage().getId().toString());
             if(addUpdateInventoryEntity == null){
@@ -119,7 +120,7 @@ public class PanchtantraServiceImpl {
         
         //Validate Booking
         if(!validateBookingDetails(inventoryEntity,booking)){
-            throw new RuntimeException("Invalid Booking details - No Seats available");
+            throw new SeatsNotAvailableException("Invalid Booking details - No Seats available");
         }
         
         //Save Booking
@@ -146,7 +147,7 @@ public class PanchtantraServiceImpl {
         List<InventoryEntity> inventories = inventoryRepository.findBySellerIdAndStatusEquals(userId.toString(),InventoryModel.StatusEnum.ACTIVE);
         
         if(inventories == null) {
-            throw new RuntimeException("Inventories not found with given userId");
+            throw new InventoryNotFoundException("Inventories not found with given userId");
         }
         
         return mapInventoriesWithUserId(userId, inventories);
@@ -156,7 +157,7 @@ public class PanchtantraServiceImpl {
         List<BookingEntity> bookingEntities = bookingRepository.findAllByBuyerIdAndStatus(userId,BookingModel.StatusEnum.ACTIVE);
 
         if(bookingEntities == null) {
-            throw new RuntimeException("Bookings not found with given userId");
+            throw new BookingNotFoundException("Bookings not found with given userId");
         }
 
         return mapBookingsWithUserId(userId, bookingEntities);

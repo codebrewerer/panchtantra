@@ -1,5 +1,7 @@
 package com.adobe.panchtantra.api;
 
+import com.adobe.panchtantra.exception.BookingNotFoundException;
+import com.adobe.panchtantra.exception.InventoryNotFoundException;
 import com.adobe.panchtantra.model.Bookings;
 import com.adobe.panchtantra.model.Inventories;
 import com.adobe.panchtantra.model.Otts;
@@ -30,10 +32,12 @@ public class UserApiController implements UserApi {
     public ResponseEntity<Bookings> getBookingsByUserId(@ApiParam(value = "userId",required=true) @PathVariable("userId") Long userId) {
         try {
             Bookings bookings = panchtantraServiceImpl.getBookingByUser(userId);
-            return new ResponseEntity<Bookings>(bookings, HttpStatus.OK);
+            return new ResponseEntity<>(bookings, HttpStatus.OK);
+        } catch(BookingNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            log.error("Couldn't serialize response for content type application/json", e);
-            return new ResponseEntity<Bookings>(HttpStatus.INTERNAL_SERVER_ERROR);
+            log.error("Exception while getting booking for the user", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -41,8 +45,10 @@ public class UserApiController implements UserApi {
         try {
             Inventories inventories = panchtantraServiceImpl.getInventoriesByUser(userId);
             return new ResponseEntity<>(inventories, HttpStatus.OK);
+        } catch(InventoryNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            log.error("Couldn't serialize response for content type application/json", e);
+            log.error("Exception while getting inventories for the user", e);
             return new ResponseEntity<Inventories>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

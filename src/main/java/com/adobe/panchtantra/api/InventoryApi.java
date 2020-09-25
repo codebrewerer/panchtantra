@@ -7,6 +7,7 @@ package com.adobe.panchtantra.api;
 
 import com.adobe.panchtantra.model.*;
 import io.swagger.annotations.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,25 +20,31 @@ public interface InventoryApi {
 
     @ApiOperation(value = "Save BookingModel.", nickname = "saveBooking", notes = "Save BookingModel.", tags={ "BookingModel", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "BookingModel saved successfully.") })
-    @RequestMapping(value = "/inventory/booking",
-        method = RequestMethod.POST)
+        @ApiResponse(code = 400, message = "No Seats available."),
+        @ApiResponse(code = 204, message = "BookingModel saved successfully."),
+        @ApiResponse(code = 500, message = "Something went wrong.")
+    })
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @RequestMapping(value = "/inventory/booking", method = RequestMethod.POST)
     ResponseEntity<Void> saveBooking(@ApiParam(value = "BookingModel Object."  )  @Valid @RequestBody BookingModel booking);
 
 
     @ApiOperation(value = "Save InventoryEntity.", nickname = "saveInventory", notes = "Save InventoryEntity.", tags={ "InventoryEntity", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "InventoryEntity saved successfully.") })
-    @RequestMapping(value = "/inventory",
-        method = RequestMethod.POST)
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid Package."),
+        @ApiResponse(code = 204, message = "InventoryEntity saved successfully."),
+        @ApiResponse(code = 500, message = "Something went wrong.")
+    })
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @RequestMapping(value = "/inventory", method = RequestMethod.POST)
     ResponseEntity<Void> saveInventory(@ApiParam(value = "InventoryEntity Object."  )  @Valid @RequestBody InventoryModel inventory);
     
     @ApiOperation(value = "Get Inventories.", nickname = "getInventories", notes = "Get InventoryEntity.", tags={ "InventoryEntity", })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "successful operation", response = Inventories.class) })
-    @RequestMapping(value = "/inventory",
-            produces = { "application/json" },
-            method = RequestMethod.GET)
+            @ApiResponse(code = 200, message = "successful operation", response = Inventories.class),
+            @ApiResponse(code = 500, message = "Something went wrong.")
+    })
+    @RequestMapping(value = "/inventory", produces = { "application/json" }, method = RequestMethod.GET)
     ResponseEntity<Inventories> getInventories(@RequestParam("packageId") String packageId, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate);
     
 

@@ -28,10 +28,9 @@ public class SwaggerDocumentationConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                     .apis(RequestHandlerSelectors.basePackage("com.adobe.panchtantra.api"))
-                    .build()
+                    .build().useDefaultResponseMessages(false)
                 .directModelSubstitute(org.threeten.bp.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(org.threeten.bp.OffsetDateTime.class, java.util.Date.class)
                 .apiInfo(apiInfo());
     }
-
 }

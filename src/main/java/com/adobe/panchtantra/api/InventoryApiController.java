@@ -1,5 +1,7 @@
 package com.adobe.panchtantra.api;
 
+import com.adobe.panchtantra.exception.InvalidPackageException;
+import com.adobe.panchtantra.exception.SeatsNotAvailableException;
 import com.adobe.panchtantra.model.BookingModel;
 import com.adobe.panchtantra.model.Inventories;
 import com.adobe.panchtantra.model.InventoryModel;
@@ -11,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,23 +27,26 @@ public class InventoryApiController implements InventoryApi {
 
     @Autowired
     private PanchtantraServiceImpl panchtantraServiceImpl;
-    
 
     public ResponseEntity<Void> saveBooking(@ApiParam(value = "BookingModel Object."  )  @Valid @RequestBody BookingModel booking) {
         try {
             panchtantraServiceImpl.saveUpdateBooking(booking);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch(SeatsNotAvailableException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             log.error("Exception occurred while saving booking ", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        
+
     }
 
     public ResponseEntity<Void> saveInventory(@ApiParam(value = "InventoryEntity Object."  )  @Valid @RequestBody InventoryModel inventory) {
         try {
             panchtantraServiceImpl.saveUpdateInventory(inventory);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch(InvalidPackageException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             log.error("Exception occurred while saving inventory ", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

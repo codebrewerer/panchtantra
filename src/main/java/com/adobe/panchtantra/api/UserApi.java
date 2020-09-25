@@ -21,22 +21,19 @@ public interface UserApi {
     @ApiOperation(value = "Retrieve bookings for user", nickname = "getBookingsByUserId", notes = "Retrieve bookings for user", response = Bookings.class, tags={ "BookingModel", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = Bookings.class),
-        @ApiResponse(code = 400, message = "Invalid ID"),
-        @ApiResponse(code = 404, message = "Bookings not found") })
-    @RequestMapping(value = "/user/{userId}/bookings",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        @ApiResponse(code = 404, message = "Bookings not found"),
+        @ApiResponse(code = 500, message = "Something went wrong.")
+    })
+    @RequestMapping(value = "/user/{userId}/bookings", produces = { "application/json" }, method = RequestMethod.GET)
     ResponseEntity<Bookings> getBookingsByUserId(@ApiParam(value = "userId",required=true) @PathVariable("userId") Long userId);
-
 
     @ApiOperation(value = "Retrieve inventories for user", nickname = "getInventoriesByUserId", notes = "Retrieve inventories for user", response = Inventories.class, tags={ "InventoryEntity", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = Inventories.class),
-        @ApiResponse(code = 400, message = "Invalid ID"),
-        @ApiResponse(code = 404, message = "Inventories not found") })
-    @RequestMapping(value = "/user/{userId}/inventories",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        @ApiResponse(code = 404, message = "Inventories not found"),
+        @ApiResponse(code = 500, message = "Something went wrong.")
+    })
+    @RequestMapping(value = "/user/{userId}/inventories", produces = { "application/json" },  method = RequestMethod.GET)
     ResponseEntity<Inventories> getInventoriesByUserId(@ApiParam(value = "userId",required=true) @PathVariable("userId") Long userId);
 
 }

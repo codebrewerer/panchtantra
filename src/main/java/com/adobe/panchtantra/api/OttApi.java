@@ -21,32 +21,29 @@ public interface OttApi {
 
     @ApiOperation(value = "Get all otts", nickname = "getAllOtts", notes = "Get all otts", response = Otts.class, tags={ "OTT", })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "successful operation", response = Packages.class)
+            @ApiResponse(code = 200, message = "successful operation", response = Packages.class),
+            @ApiResponse(code = 500, message = "Something went wrong.")
     })
-    @RequestMapping(value = "/ott",
-            produces = { "application/json" },
-            method = RequestMethod.GET)
+    @RequestMapping(value = "/ott", produces = { "application/json" }, method = RequestMethod.GET)
     ResponseEntity<Otts> getAllOtts();
 
     @ApiOperation(value = "Find OTT packages by OTTid", nickname = "getAllOttPackages", notes = "Find OTT packages by OTTid", response = Packages.class, tags={ "OTT", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = Packages.class),
-        @ApiResponse(code = 400, message = "Invalid ID"),
-        @ApiResponse(code = 404, message = "PackageEntity not found") })
-    @RequestMapping(value = "/ott/{ottId}/packages",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        @ApiResponse(code = 404, message = "PackageEntity not found"),
+        @ApiResponse(code = 500, message = "Something went wrong.")
+    })
+    @RequestMapping(value = "/ott/{ottId}/packages", produces = { "application/json" }, method = RequestMethod.GET)
     ResponseEntity<Packages> getAllOttPackages(@ApiParam(value = "ID of ott",required=true) @PathVariable("ottId") Long ottId);
 
 
     @ApiOperation(value = "Find ott PackageEntity by Id", nickname = "getPackageById", notes = "Find ott PackageEntity by Id", response = PackageModel.class, tags={ "OTT", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = PackageModel.class),
-        @ApiResponse(code = 400, message = "Invalid ID"),
-        @ApiResponse(code = 404, message = "PackageEntity not found") })
-    @RequestMapping(value = "/ott/{ottId}/package/{packageId}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        @ApiResponse(code = 404, message = "PackageEntity not found"),
+        @ApiResponse(code = 500, message = "Something went wrong.")
+    })
+    @RequestMapping(value = "/ott/{ottId}/package/{packageId}", produces = { "application/json" }, method = RequestMethod.GET)
     ResponseEntity<PackageModel> getPackageById(@ApiParam(value = "ID of ott to return",required=true) @PathVariable("ottId") Long ottId, @ApiParam(value = "ID of package to return",required=true) @PathVariable("packageId") Long packageId);
 
 }
