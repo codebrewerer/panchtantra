@@ -69,7 +69,7 @@ CREATE  TABLE IF NOT EXISTS `panch`.`inventories` (
   `num_seats` INT NOT NULL ,
   `status` ENUM('ACTIVE', 'INACTIVE') NOT NULL ,
   `starts_at` DATETIME NOT NULL ,
-  `expires_at` BINARY NOT NULL ,
+  `expires_at` DATETIME NOT NULL ,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP ,
   `updated_at` DATETIME ON UPDATE CURRENT_TIMESTAMP ,
   `users_id` INT NOT NULL ,
