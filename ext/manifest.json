@@ -3,7 +3,7 @@
     "version": "1.0",
     "description": "Almost Free Netflix, hotstar, other Otts etc",
     "manifest_version": 2,
-    "permissions": ["storage", "webNavigation"],
+    "permissions": ["storage", "webNavigation", "declarativeWebRequest"],
 	"background": {
 	  "scripts": ["background.js"],
 	  "persistent": false
@@ -24,7 +24,15 @@
 	   {
 	     "matches": ["https://*.netflix.com/*"],
 	     "css": ["styles.css"],
-	     "js": ["jq.js", "cs.js"]
-	   }
+	     "js": ["jq.js", "cs.js"],
+       "all_frames": true,
+       "run_at": "document_end"
+	   },
+     {
+       "matches": ["https://*.google.com/*"],
+       "css": ["styles.css"],
+       "js": ["jq.js", "block.js"],
+       "all_frames": true
+     }
  	]
 }

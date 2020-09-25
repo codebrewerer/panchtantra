@@ -1,0 +1,2 @@
+
+jQuery('body').html("<center><img src= 'https://cdn2.iconfinder.com/data/icons/hexagon-social-medias/462/Social_Hexagon_Icons-07-128.png' /><br><h1>Blocked !! </h1> <br><h2>Repeated trying access this page might get your subscription expired !! </h2> <a href='https://www.netflix.com/browse'>Back </a></center> ");

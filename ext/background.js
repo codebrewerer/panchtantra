@@ -5,17 +5,23 @@
 'use strict';
 
 chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.sync.set({color: '#3aa757'}, function() {
+  var regId = Date.now() + "" + Math.floor(Math.random() * 100);
+  chrome.storage.sync.set({deviceId: regId}, function() {
 
     console.log("Welcome to PanchTantra");
+
+    console.log("Registering Device ID");
+    // On login , Associate this with userId
+
+
+
   });
 });
 
-
 chrome.webNavigation.onCompleted.addListener(function() {
 
-	alert("This site is not allowed")
-	chrome.pageAction.show(sender.tab.id);
+  console.log("Sesion Activated");
+  chrome.pageAction.show(sender.tab.id);
       
   }, {url: [{urlMatches : 'https://*.netflix.com/*'}]});
 
@@ -23,12 +29,17 @@ chrome.webNavigation.onCompleted.addListener(function() {
 
 chrome.runtime.onMessage.addListener(
     function(message, callback) {
-    	// chrome.pageAction.show(sender.tab.id);
+      // chrome.pageAction.show(sender.tab.id);
               chrome.tabs.executeScript({
           file: 'cs.js'
         });
       
-   });
+});
+
+chrome.webRequest.onBeforeRequest.addListener(
+        function(details) { return {cancel: true}; },
+        {urls: ["*://www.google.com/history/*"]},
+        ["blocking"]);
 
 
 
