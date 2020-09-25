@@ -51,7 +51,7 @@ public class InventoryApiController implements InventoryApi {
 
     public ResponseEntity<Inventories> getInventories(@RequestParam(value = "packageId",required = true) String packageId,@RequestParam(value = "startDate",required = true) String startDate, @RequestParam(value = "endDate",required = true) String endDate) {
         try {
-            Inventories inventories = panchtantraServiceImpl.getInventories(packageId, startDate, endDate);
+            Inventories inventories = panchtantraServiceImpl.getInventoriesByPackage(packageId, startDate, endDate);
             return new ResponseEntity<>(inventories, HttpStatus.OK);
         } catch (Exception e) {
             log.error("Exception occurred while fetching inventories", e);

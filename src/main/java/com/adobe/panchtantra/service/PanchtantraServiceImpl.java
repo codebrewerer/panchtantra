@@ -4,10 +4,7 @@ import com.adobe.panchtantra.entity.BookingEntity;
 import com.adobe.panchtantra.entity.InventoryEntity;
 import com.adobe.panchtantra.entity.PackageEntity;
 import com.adobe.panchtantra.entity.UserEntity;
-import com.adobe.panchtantra.mapper.InventoryMapper;
-import com.adobe.panchtantra.mapper.OttMapper;
-import com.adobe.panchtantra.mapper.PackageMapper;
-import com.adobe.panchtantra.mapper.UserMapper;
+import com.adobe.panchtantra.mapper.*;
 import com.adobe.panchtantra.model.*;
 import com.adobe.panchtantra.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +47,9 @@ public class PanchtantraServiceImpl {
     
     @Autowired
     private UserMapper userMapper;
+    
+    @Autowired
+    private BookingMapper bookingMapper;
 
     public Otts getAllOtts() {
         return ottMapper.convertListOfOttToOtts(ottRepository.findAll());
@@ -69,28 +69,22 @@ public class PanchtantraServiceImpl {
         }
     }
     
-    public Inventories getInventories(String packageId,String startDateString,String endDateString) {
+    public Inventories getInventoriesByPackage(String packageId,String startDateString,String endDateString) {
         
         try {
-            Map<Long, UserEntity> userMap = new HashMap<>();
             Date startDate=FORMAT.parse(startDateString);
             Date endDate=FORMAT.parse(endDateString);
             
             List<InventoryEntity> inventories = inventoryRepository.findAllByPackageIdAndStartsAtEqualsAndExpiresAtEqualsAndNoOfSeatsIsGreaterThan(packageId,startDate,endDate,1L);
-            PackageModel aPackage = getPackage(null,Long.valueOf(packageId));
-            Inventories availableInventories = inventoryMapper.convertListOfInventoryToInventories(inventories,aPackage);
 
-            inventories.forEach(inventoryEntity -> userMap.put(inventoryEntity.getId(),userRepository.findOne(Long.valueOf(inventoryEntity.getSellerId()))));
-            availableInventories.forEach(inventory -> inventory.setSeller(userMapper.convertUserToModelUser(userMap.get(inventory.getId()))));
-            
-            return availableInventories;
+            return mapInventoriesWithPackageId(packageId, inventories);
             
         } catch (ParseException e) {
             throw new RuntimeException("Invalid Date");
         }
         
     }
-    
+
     public void saveUpdateInventory(InventoryModel inventoryModel) {
         try {
             if(!validatePackageDetails(inventoryModel)) {
@@ -145,6 +139,26 @@ public class PanchtantraServiceImpl {
         inventoryRepository.save(inventoryEntity);
     }
     
+    public Inventories getInventoriesByUser(Long userId) {
+        List<InventoryEntity> inventories = inventoryRepository.findBySellerIdAndStatusEquals(userId.toString(),InventoryModel.StatusEnum.ACTIVE);
+        
+        if(inventories == null) {
+            throw new RuntimeException("Inventories not found with given userId");
+        }
+        
+        return mapInventoriesWithUserId(userId, inventories);
+    }
+
+    public Bookings getBookingByUser(Long userId) {
+        List<BookingEntity> bookingEntities = bookingRepository.findAllByBuyerIdAndStatus(userId,BookingModel.StatusEnum.ACTIVE);
+
+        if(bookingEntities == null) {
+            throw new RuntimeException("Bookings not found with given userId");
+        }
+
+        return mapBookingsWithUserId(userId, bookingEntities);
+    }
+    
     private boolean validateBookingDetails(InventoryEntity inventory,BookingModel booking) {
         if(inventory == null || inventory.getStatus() == InventoryModel.StatusEnum.INACTIVE)
             return false;
@@ -163,5 +177,46 @@ public class PanchtantraServiceImpl {
             return false;
         
         return true;
+    }
+
+    private Inventories mapInventoriesWithPackageId(String packageId, List<InventoryEntity> inventories) {
+        Map<Long, UserEntity> userMap = new HashMap<>();
+        PackageModel aPackage = getPackage(null,Long.valueOf(packageId));
+        Inventories availableInventories = inventoryMapper.convertListOfInventoryToInventories(inventories);
+
+        inventories.forEach(inventoryEntity -> userMap.put(inventoryEntity.getId(),userRepository.findOne(Long.valueOf(inventoryEntity.getSellerId()))));
+        availableInventories.forEach(inventory -> {
+            inventory.setSeller(userMapper.convertUserToModelUser(userMap.get(inventory.getId())));
+            inventory.setPackage(aPackage);
+        });
+        return availableInventories;
+    }
+
+    private Inventories mapInventoriesWithUserId(Long userId, List<InventoryEntity> inventories) {
+        Map<Long, PackageEntity> packageMap = new HashMap<>();
+        UserModel userModel = userMapper.convertUserToModelUser(userRepository.findOne(userId));
+        Inventories availableInventories = inventoryMapper.convertListOfInventoryToInventories(inventories);
+
+        inventories.forEach(inventoryEntity -> packageMap.put(inventoryEntity.getId(),packageRepository.findOne(Long.valueOf(inventoryEntity.getPackageId()))));
+        availableInventories.forEach(inventory -> {
+            inventory.setPackage(packageMapper.convertPackageToModelPackage(packageMap.get(inventory.getId())));
+            inventory.setSeller(userModel);
+        });
+        return availableInventories;
+    }
+    
+    private Bookings mapBookingsWithUserId(Long userId, List<BookingEntity> bookingEntities) {
+        Map<Long, InventoryEntity> inventoryMap = new HashMap<>();
+        UserModel userModel = userMapper.convertUserToModelUser(userRepository.findOne(userId));
+
+        bookingEntities.forEach(bookingEntity -> inventoryMap.put(bookingEntity.getId(),inventoryRepository.findOne(bookingEntity.getInventoryId())));
+        Bookings bookings = bookingMapper.convertListOfBookingToBookings(bookingEntities);
+        
+        bookings.forEach(bookingModel -> {
+            bookingModel.setBuyer(userModel);
+            bookingModel.setInventory(inventoryMapper.convertInventoryToInventoryDto(inventoryMap.get(bookingModel.getId())));
+        });
+        
+        return bookings;
     }
 }

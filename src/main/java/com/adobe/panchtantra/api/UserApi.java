@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @javax.annotation.Generated(value = "io.panchtantra.codegen.languages.SpringCodegen", date = "2020-09-24T08:39:55.612Z")
 
 @Api(value = "user", description = "the user API")
-@RequestMapping(value = "/Panchtantra/Parasites/1.0.0")
 public interface UserApi {
 
     @ApiOperation(value = "Retrieve bookings for user", nickname = "getBookingsByUserId", notes = "Retrieve bookings for user", response = Bookings.class, tags={ "BookingModel", })
