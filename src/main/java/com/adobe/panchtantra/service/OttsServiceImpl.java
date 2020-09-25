@@ -29,6 +29,7 @@ import java.util.Map;
 @Service
 public class OttsServiceImpl {
 
+    private static SimpleDateFormat FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     @Autowired
     private OttRepository ottRepository;
 
@@ -72,11 +73,11 @@ public class OttsServiceImpl {
     }
     
     public Inventories getInventories(String packageId,String startDateString,String endDateString) {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        
         try {
             Map<Long,User> userMap = new HashMap<>();
-            Date startDate=format.parse(startDateString);
-            Date endDate=format.parse(endDateString);
+            Date startDate=FORMAT.parse(startDateString);
+            Date endDate=FORMAT.parse(endDateString);
             
             List<Inventory> inventories = inventoryRepository.findAllByPackageIdAndStartsAtEqualsAndExpiresAtEquals(packageId,startDate,endDate);
             ModelPackage aPackage = getPackage(null,Long.valueOf(packageId));
@@ -91,5 +92,25 @@ public class OttsServiceImpl {
             throw new RuntimeException("Invalid Date");
         }
         
+    }
+    
+    public void saveInventory(com.adobe.panchtantra.model.Inventory inventory) {
+        try {
+            Inventory addInventory = new Inventory();
+
+            addInventory.setNoOfSeats(inventory.getNoOfSeats());
+            addInventory.setStatus(com.adobe.panchtantra.model.Inventory.StatusEnum.ACTIVE.name());
+            addInventory.setOttUserName(inventory.getOttPassword());
+            addInventory.setOttPassword(inventory.getOttPassword());
+            addInventory.setStartsAt(FORMAT.parse(inventory.getStartDate()));
+            addInventory.setExpiresAt(FORMAT.parse(inventory.getEndDate()));
+            addInventory.setSellerId(inventory.getSeller().getId().toString());
+            addInventory.setPackageId(inventory.getPackage().getId().toString());
+
+            inventoryRepository.save(addInventory);
+        }
+        catch (ParseException e){
+            throw new RuntimeException("Invalid Date");
+        }
     }
 }

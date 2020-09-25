@@ -1,7 +1,6 @@
 package com.adobe.panchtantra.mapper;
 
 import com.adobe.panchtantra.entity.Inventory;
-import com.adobe.panchtantra.entity.Package;
 import com.adobe.panchtantra.model.Inventories;
 import com.adobe.panchtantra.model.ModelPackage;
 import org.springframework.stereotype.Component;
@@ -30,8 +29,12 @@ public class InventoryMapper {
         inventoryDto.
                 id(inventory.getId()).
                 noOfSeats(inventory.getNoOfSeats()).
-                status(inventory.getStatus()).
-                _package(aPackage);
+                status(com.adobe.panchtantra.model.Inventory.StatusEnum.valueOf(inventory.getStatus())).
+                ottUsername(inventory.getOttUserName()).
+                ottPassword(inventory.getOttPassword()).
+                _package(aPackage).
+                startDate(inventory.getStartsAt().toString()).
+                endDate(inventory.getExpiresAt().toString());
         
         return inventoryDto;
     }

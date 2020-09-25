@@ -9,7 +9,7 @@ public class UserMapper {
     public User convertUserToModelUser(com.adobe.panchtantra.entity.User user) {
         User modelUser = new User();
 
-        modelUser.setEmail(user.getName());
+        modelUser.setEmail(user.getEmail());
         modelUser.setId(user.getId());
         modelUser.setName(user.getName());
 

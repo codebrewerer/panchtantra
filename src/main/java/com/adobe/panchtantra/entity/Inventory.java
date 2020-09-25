@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name="inventories")
 public class Inventory {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
     private Long id;
 
@@ -16,7 +16,13 @@ public class Inventory {
 
     @Column(name="status")
     private String status;
+    
+    @Column(name="ott_user_name")
+    private String ottUserName;
 
+    @Column(name="ott_password")
+    private String ottPassword;
+    
     @Column(name="starts_at")
     private Date startsAt;
 
@@ -51,6 +57,22 @@ public class Inventory {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getOttUserName() {
+        return ottUserName;
+    }
+
+    public void setOttUserName(String ottUserName) {
+        this.ottUserName = ottUserName;
+    }
+
+    public String getOttPassword() {
+        return ottPassword;
+    }
+
+    public void setOttPassword(String ottPassword) {
+        this.ottPassword = ottPassword;
     }
 
     public Date getStartsAt() {

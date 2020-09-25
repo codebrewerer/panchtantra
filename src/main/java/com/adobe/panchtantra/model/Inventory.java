@@ -1,7 +1,10 @@
 package com.adobe.panchtantra.model;
 
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.LocalDate;
 import org.springframework.validation.annotation.Validated;
@@ -38,14 +41,45 @@ public class Inventory   {
   @JsonProperty("booking")
   private Bookings booking = null;
 
-  @JsonProperty("status")
-  private Object status = null;
+  /**
+   * Gets or Sets status
+   */
+  public enum StatusEnum {
+    ACTIVE("ACTIVE"),
 
+    INACTIVE("INACTIVE");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static Inventory.StatusEnum fromValue(String text) {
+      for (Inventory.StatusEnum b : Inventory.StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+  }
+
+  @JsonProperty("status")
+  private Inventory.StatusEnum status = null;
+  
   @JsonProperty("startDate")
-  private LocalDate startDate = null;
+  private String startDate = null;
 
   @JsonProperty("endDate")
-  private LocalDate endDate = null;
+  private String endDate = null;
 
   @JsonProperty("createdDateAt")
   private LocalDate createdDateAt = null;
@@ -196,7 +230,7 @@ public class Inventory   {
     this.booking = booking;
   }
 
-  public Inventory status(Object status) {
+  public Inventory status(Inventory.StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -204,19 +238,19 @@ public class Inventory   {
   /**
    * Get status
    * @return status
-  **/
+   **/
   @ApiModelProperty(value = "")
 
 
-  public Object getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(Object status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
-  public Inventory startDate(LocalDate startDate) {
+  public Inventory startDate(String startDate) {
     this.startDate = startDate;
     return this;
   }
@@ -229,15 +263,15 @@ public class Inventory   {
 
   @Valid
 
-  public LocalDate getStartDate() {
+  public String getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(LocalDate startDate) {
+  public void setStartDate(String startDate) {
     this.startDate = startDate;
   }
 
-  public Inventory endDate(LocalDate endDate) {
+  public Inventory endDate(String endDate) {
     this.endDate = endDate;
     return this;
   }
@@ -250,11 +284,11 @@ public class Inventory   {
 
   @Valid
 
-  public LocalDate getEndDate() {
+  public String getEndDate() {
     return endDate;
   }
 
-  public void setEndDate(LocalDate endDate) {
+  public void setEndDate(String endDate) {
     this.endDate = endDate;
   }
 

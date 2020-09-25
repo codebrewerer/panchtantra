@@ -36,7 +36,13 @@ public class InventoryApiController implements InventoryApi {
     }
 
     public ResponseEntity<Void> saveInventory(@ApiParam(value = "Inventory Object."  )  @Valid @RequestBody Inventory inventory) {
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        try {
+            ottsServiceImpl.saveInventory(inventory);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            log.error("Exception occurred while saving inventory ", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     public ResponseEntity<Inventories> getInventories(@RequestParam(value = "packageId",required = true) String packageId,@RequestParam(value = "startDate",required = true) String startDate, @RequestParam(value = "endDate",required = true) String endDate) {
@@ -44,7 +50,7 @@ public class InventoryApiController implements InventoryApi {
             Inventories inventories = ottsServiceImpl.getInventories(packageId, startDate, endDate);
             return new ResponseEntity<>(inventories, HttpStatus.OK);
         } catch (Exception e) {
-            log.error("Exception occurred while fetching package", e);
+            log.error("Exception occurred while fetching inventories", e);
             return new ResponseEntity<Inventories>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
