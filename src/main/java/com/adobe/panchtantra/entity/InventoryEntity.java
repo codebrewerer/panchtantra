@@ -1,5 +1,9 @@
 package com.adobe.panchtantra.entity;
 
+import com.adobe.panchtantra.model.InventoryModel;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -15,7 +19,8 @@ public class InventoryEntity {
     private Long noOfSeats;
 
     @Column(name="status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private InventoryModel.StatusEnum status;
     
     @Column(name="ott_user_name")
     private String ottUserName;
@@ -35,6 +40,16 @@ public class InventoryEntity {
     @Column(name="packages_otts_id")
     private String packageId;
 
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date updatedAt;
+
     public Long getId() {
         return id;
     }
@@ -51,11 +66,11 @@ public class InventoryEntity {
         this.noOfSeats = noOfSeats;
     }
 
-    public String getStatus() {
+    public InventoryModel.StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(InventoryModel.StatusEnum status) {
         this.status = status;
     }
 

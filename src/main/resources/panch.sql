@@ -91,7 +91,7 @@ DROP TABLE IF EXISTS `panch`.`bookings` ;
 CREATE  TABLE IF NOT EXISTS `panch`.`bookings` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `num_seats` INT NOT NULL ,
-  `status` ENUM('IN_PROGRESS', 'FAILED', 'SUCCESS') NULL ,
+  `status` ENUM('ACTIVE', 'INACTIVE') NULL ,
   `booked_at` VARCHAR(45) NULL ,
   `expires_at` VARCHAR(45) NULL ,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP ,

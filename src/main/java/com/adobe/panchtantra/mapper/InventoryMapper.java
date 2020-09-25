@@ -30,7 +30,7 @@ public class InventoryMapper {
         inventoryModelDto.
                 id(inventoryEntity.getId()).
                 noOfSeats(inventoryEntity.getNoOfSeats()).
-                status(InventoryModel.StatusEnum.valueOf(inventoryEntity.getStatus())).
+                status(inventoryEntity.getStatus()).
                 ottUsername(inventoryEntity.getOttUserName()).
                 ottPassword(inventoryEntity.getOttPassword()).
                 _package(aPackage).

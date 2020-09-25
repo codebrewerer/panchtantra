@@ -28,13 +28,20 @@ public class InventoryApiController implements InventoryApi {
     private PanchtantraServiceImpl panchtantraServiceImpl;
     
 
-    public ResponseEntity<Void> saveBookingsByInventoryId(@ApiParam(value = "inventoryId",required=true) @PathVariable("inventoryId") Long inventoryId,@ApiParam(value = "BookingModel Object."  )  @Valid @RequestBody BookingModel booking) {
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<Void> saveBooking(@ApiParam(value = "BookingModel Object."  )  @Valid @RequestBody BookingModel booking) {
+        try {
+            panchtantraServiceImpl.saveUpdateBooking(booking);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            log.error("Exception occurred while saving booking ", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
     }
 
     public ResponseEntity<Void> saveInventory(@ApiParam(value = "InventoryEntity Object."  )  @Valid @RequestBody InventoryModel inventory) {
         try {
-            panchtantraServiceImpl.saveInventory(inventory);
+            panchtantraServiceImpl.saveUpdateInventory(inventory);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             log.error("Exception occurred while saving inventory ", e);

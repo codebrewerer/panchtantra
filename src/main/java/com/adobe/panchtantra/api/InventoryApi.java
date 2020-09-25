@@ -17,12 +17,12 @@ import javax.validation.Valid;
 @Api(value = "inventory", description = "the inventory API")
 public interface InventoryApi {
 
-    @ApiOperation(value = "Save BookingModel.", nickname = "saveBookingsByInventoryId", notes = "Save BookingModel.", tags={ "BookingModel", })
+    @ApiOperation(value = "Save BookingModel.", nickname = "saveBooking", notes = "Save BookingModel.", tags={ "BookingModel", })
     @ApiResponses(value = { 
         @ApiResponse(code = 204, message = "BookingModel saved successfully.") })
-    @RequestMapping(value = "/inventory/{inventoryId}/booking",
+    @RequestMapping(value = "/inventory/booking",
         method = RequestMethod.POST)
-    ResponseEntity<Void> saveBookingsByInventoryId(@ApiParam(value = "inventoryId",required=true) @PathVariable("inventoryId") Long inventoryId,@ApiParam(value = "BookingModel Object."  )  @Valid @RequestBody BookingModel booking);
+    ResponseEntity<Void> saveBooking(@ApiParam(value = "BookingModel Object."  )  @Valid @RequestBody BookingModel booking);
 
 
     @ApiOperation(value = "Save InventoryEntity.", nickname = "saveInventory", notes = "Save InventoryEntity.", tags={ "InventoryEntity", })

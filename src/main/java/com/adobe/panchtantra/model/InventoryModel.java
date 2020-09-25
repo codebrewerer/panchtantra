@@ -23,19 +23,19 @@ public class InventoryModel {
   @JsonProperty("id")
   private Long id = null;
 
-  @JsonProperty("package")
+  @JsonProperty(value = "package",required = true)
   private PackageModel _package = null;
 
-  @JsonProperty("seller")
+  @JsonProperty(value = "seller",required = true)
   private UserModel seller = null;
 
-  @JsonProperty("ottUsername")
+  @JsonProperty(value = "ottUsername",required = true)
   private String ottUsername = null;
 
-  @JsonProperty("ottPassword")
+  @JsonProperty(value = "ottPassword",required = true)
   private String ottPassword = null;
 
-  @JsonProperty("noOfSeats")
+  @JsonProperty(value = "noOfSeats",required = true)
   private Long noOfSeats = null;
 
   @JsonProperty("booking")

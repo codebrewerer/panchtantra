@@ -10,5 +10,7 @@ import java.util.List;
 @Repository
 public interface InventoryRepository extends JpaRepository<InventoryEntity, Long> {
     
-    List<InventoryEntity> findAllByPackageIdAndStartsAtEqualsAndExpiresAtEquals(String packageId, Date startsAt, Date expiresAt);
+    List<InventoryEntity> findAllByPackageIdAndStartsAtEqualsAndExpiresAtEqualsAndNoOfSeatsIsGreaterThan(String packageId, Date startsAt, Date expiresAt,Long seatsLimit);
+    
+    InventoryEntity findFirstBySellerIdAndAndPackageId(String sellerId,String packageId);
 }

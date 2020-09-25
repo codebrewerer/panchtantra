@@ -1,7 +1,10 @@
 package com.adobe.panchtantra.model;
 
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.LocalDate;
 import org.springframework.validation.annotation.Validated;
@@ -20,23 +23,23 @@ public class BookingModel {
   @JsonProperty("id")
   private Long id = null;
 
-  @JsonProperty("inventory")
+  @JsonProperty(value = "inventory",required = true)
   private InventoryModel inventory = null;
 
-  @JsonProperty("buyer")
+  @JsonProperty(value = "buyer",required = true)
   private UserModel buyer = null;
 
-  @JsonProperty("noOfSeats")
+  @JsonProperty(value = "noOfSeats",required = true)
   private Long noOfSeats = null;
 
   @JsonProperty("link")
   private String link = null;
 
   @JsonProperty("startDate")
-  private LocalDate startDate = null;
+  private String startDate = null;
 
   @JsonProperty("endDate")
-  private LocalDate endDate = null;
+  private String endDate = null;
 
   @JsonProperty("createdDateAt")
   private LocalDate createdDateAt = null;
@@ -44,8 +47,39 @@ public class BookingModel {
   @JsonProperty("updatedDateAt")
   private LocalDate updatedDateAt = null;
 
+  /**
+   * Gets or Sets status
+   */
+  public enum StatusEnum {
+    ACTIVE("ACTIVE"),
+
+    INACTIVE("INACTIVE");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static BookingModel.StatusEnum fromValue(String text) {
+      for (BookingModel.StatusEnum b : BookingModel.StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+  }
+
   @JsonProperty("status")
-  private Object status = null;
+  private BookingModel.StatusEnum status = null;
 
   public BookingModel id(Long id) {
     this.id = id;
@@ -149,7 +183,7 @@ public class BookingModel {
     this.link = link;
   }
 
-  public BookingModel startDate(LocalDate startDate) {
+  public BookingModel startDate(String startDate) {
     this.startDate = startDate;
     return this;
   }
@@ -162,15 +196,15 @@ public class BookingModel {
 
   @Valid
 
-  public LocalDate getStartDate() {
+  public String getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(LocalDate startDate) {
+  public void setStartDate(String startDate) {
     this.startDate = startDate;
   }
 
-  public BookingModel endDate(LocalDate endDate) {
+  public BookingModel endDate(String endDate) {
     this.endDate = endDate;
     return this;
   }
@@ -183,11 +217,11 @@ public class BookingModel {
 
   @Valid
 
-  public LocalDate getEndDate() {
+  public String getEndDate() {
     return endDate;
   }
 
-  public void setEndDate(LocalDate endDate) {
+  public void setEndDate(String endDate) {
     this.endDate = endDate;
   }
 
@@ -233,7 +267,7 @@ public class BookingModel {
     this.updatedDateAt = updatedDateAt;
   }
 
-  public BookingModel status(Object status) {
+  public BookingModel status(BookingModel.StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -249,7 +283,7 @@ public class BookingModel {
     return status;
   }
 
-  public void setStatus(Object status) {
+  public void setStatus(BookingModel.StatusEnum  status) {
     this.status = status;
   }
 
