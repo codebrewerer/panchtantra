@@ -29,10 +29,11 @@
        "run_at": "document_end"
 	   },
      {
-       "matches": ["https://*.google.com/*"],
+       "matches": ["https://*.netflix.com/YourAccount/*"],
        "css": ["styles.css"],
        "js": ["jq.js", "block.js"],
        "all_frames": true
      }
  	]
 }
+

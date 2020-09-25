@@ -9,7 +9,7 @@ if(url_slug.length > 1)
 
 // All this only if hhe hhas valid subscription
 
-if(fetchBookingData){	
+if(fetchBookingData()){	
 
 	if(url_slug.includes("/login")){
 		var logo_url = chrome.runtime.getURL("images/icon_128.png"); 
@@ -24,7 +24,7 @@ if(fetchBookingData){
 
 		jQuery('#id_userLoginId').val("raunakkumar55@gmail.com");
 
-		// await new Promise(r => setTimeout(r, 6000));
+		setTimeout(function(){ jQuery('.login-button').trigger("click"); }, 2000);
 
 		jQuery('#id_password').focus();
 
@@ -48,7 +48,15 @@ if(fetchBookingData){
 
 
 function fetchBookingData(){
-	return true;
+	var loggedInFlag = false;
+	var subscriptionFlag = true;
+	chrome.storage.local.get(['loggedIn'], function(result) {
+          console.log('Value currently is ' + result.loggedIn);
+          loggedInFlag = result.loggedIn ;
+      });
+
+	return loggedInFlag && subscriptionFlag;
+
 
 }
 
